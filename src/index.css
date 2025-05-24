@@ -1,8 +1,56 @@
 @import "tailwindcss";
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -moz-osx-font-smoothing: grayscale;
+   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+   font-synthesis: none;
+   text-rendering: optimizeLegibility;
+   -moz-osx-font-smoothing: grayscale;
+
+   /* color-scheme: dark; */
+}
+
+@layer base {
+
+   /* ============== EDITOR GRID STYLES ============== */
+   .grid {
+      display: grid;
+
+      &:has(> .gutter-col) {
+         grid-template-columns: 1fr 10px 1fr 10px 1fr;
+      }
+      &:has(> .gutter-row) {
+         grid-template-rows: 1fr 10px 1fr 10px 1fr;
+      }
+
+      .gutter-col,
+      .gutter-row {
+         @apply bg-gray-200 hover:bg-gray-400;
+      }
+
+      .gutter-col {
+         grid-row: 1/-1;
+         cursor: col-resize;
+      }
+
+      .gutter-col-1 {
+         grid-column: 2;
+      }
+
+      .gutter-col-3 {
+         grid-column: 4;
+      }
+
+      .gutter-row {
+         grid-column: 1/-1;
+         cursor: row-resize;
+      }
+
+      .gutter-row-1 {
+         grid-row: 2;
+      }
+
+      .gutter-row-3 {
+         grid-row: 4;
+      }
+   }
 }
