@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
+@theme {
+   --gutter-size: 2px;
+}
+
 :root {
-   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+   font-family: "SF Pro Display";
    font-synthesis: none;
    text-rendering: optimizeLegibility;
    -moz-osx-font-smoothing: grayscale;
@@ -9,48 +13,55 @@
    /* color-scheme: dark; */
 }
 
-@layer base {
+/* ============== EDITOR GRID STYLES ============== */
+.grid {
+   display: grid;
+   grid-template-rows: 1fr var(--gutter-size) 1fr var(--gutter-size) 1fr;
 
-   /* ============== EDITOR GRID STYLES ============== */
-   .grid {
-      display: grid;
+   /* &:has(> .gutter-col.col-2-row-2) {
+      grid-template-columns: 1fr var(--gutter-size) 1fr;
+   }
+   &:has(> .gutter-row.col-2-row-2) {
+      grid-template-rows: 1fr var(--gutter-size) 1fr;
+   } */
 
-      &:has(> .gutter-col) {
-         grid-template-columns: 1fr 10px 1fr 10px 1fr;
-      }
-      &:has(> .gutter-row) {
-         grid-template-rows: 1fr 10px 1fr 10px 1fr;
-      }
 
-      .gutter-col,
-      .gutter-row {
-         @apply bg-gray-200 hover:bg-gray-400;
-      }
+   &:has(> .gutter-col) {
+      /* --gutter-size: 5px; */
+   }
+   &:has(> .gutter-row) {
+      /* --gutter-size: 5px; */
+      grid-template-rows: 1fr var(--gutter-size) 1fr var(--gutter-size) 1fr;
+   }
 
-      .gutter-col {
-         grid-row: 1/-1;
-         cursor: col-resize;
-      }
+   .gutter-col,
+   .gutter-row {
+      @apply bg-gray-200 hover:bg-gray-300;
+   }
 
-      .gutter-col-1 {
-         grid-column: 2;
-      }
+   .gutter-col {
+      grid-row: 1/-1;
+      cursor: col-resize;
+   }
 
-      .gutter-col-3 {
-         grid-column: 4;
-      }
+   .gutter-row {
+      grid-column: 1/-1;
+      cursor: row-resize;
+   }
 
-      .gutter-row {
-         grid-column: 1/-1;
-         cursor: row-resize;
-      }
+   .gutter-col-1 {
+      grid-column: 2;
+   }
 
-      .gutter-row-1 {
-         grid-row: 2;
-      }
+   .gutter-col-3 {
+      grid-column: 4;
+   }
 
-      .gutter-row-3 {
-         grid-row: 4;
-      }
+   .gutter-row-1 {
+      grid-row: 2;
+   }
+
+   .gutter-row-3 {
+      grid-row: 4;
    }
 }

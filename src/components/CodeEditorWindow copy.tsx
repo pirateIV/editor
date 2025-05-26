@@ -4,7 +4,6 @@ import { cn } from "../lib/utils";
 import type { Language } from "../types";
 
 import CodeEditorTab from "./CodeEditorTab";
-import MonacoEditor from "react-monaco-editor";
 
 export default function CodeEditorWindow() {
    const [editorDirection, setEditorDirection] = React.useState<"row" | "column">("row");
@@ -34,8 +33,8 @@ export default function CodeEditorWindow() {
             gridTemplateRows={editorDirection === "row" ? "1fr 5px 1fr 5px 1fr" : "1fr"}
             gridTemplateColumns={editorDirection === "column" ? "1fr 5px 1fr 5px 1fr" : "1fr"}
             cursor={editorDirection === "column" ? "col-resize" : "row-resize"}
-         >
-            {({
+            // @ts-expect-error - Property 'render' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<Split> & Readonly<SplitProps>'.
+            render={({
                getGridProps,
                getGutterProps,
             }: {
@@ -52,12 +51,11 @@ export default function CodeEditorWindow() {
 
                      return (
                         <React.Fragment key={language}>
-                           {/* <CodeEditorTab
+                           <CodeEditorTab
                               language={language}
                               code={code.languages[language]}
                               onChange={onChange}
-                           /> */}
-                           <MonacoEditor value={code.languages[language]} language={language} />
+                           />
                            {index === defaultLanguages.length - 1 ? null : (
                               <div
                                  className={cn(gutterName, gutterName + "-" + gutterIndex)}
@@ -69,7 +67,7 @@ export default function CodeEditorWindow() {
                   })}
                </div>
             )}
-         </Split>
+         />
       </div>
    );
 }
