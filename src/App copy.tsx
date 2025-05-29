@@ -29,7 +29,7 @@ export default function App() {
                fontFamily: "MonoLisa",
                "semanticHighlighting.enabled": true,
             }}
-            editorDidMount={(editor) => {
+            editorDidMount={(editor, monaco) => {
                editor.focus();
             }}
          />

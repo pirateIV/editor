@@ -29,12 +29,15 @@ export default function CodeEditorTab({
    const handleEditorChange = (newValue: string | undefined) => {
       const valueToSet = newValue ?? "";
       setValue(valueToSet);
-      onChange(language, valueToSet); 
+      onChange(language, valueToSet);
    };
 
    return (
       <div
-         className={cn("overflow-hidden rounded-lg bg-[#fffffe]", className)}
+         className={cn(
+            "overflow-hidden not-first:rounded-t-lg h-full not-last:rounded-b-lg bg-[#fffffe]",
+            className
+         )}
          {...props}
       >
          <div className="bg-white" data-lang-mode={language}>
@@ -54,6 +57,9 @@ export default function CodeEditorTab({
                minimap: { enabled: false },
             }}
             onChange={handleEditorChange}
+            // onMount={(editor, monaco) => {
+            //    console.log(editor, monaco);
+            // }}
          />
       </div>
    );

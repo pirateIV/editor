@@ -4,23 +4,14 @@ import { cn } from "../lib/utils";
 import type { Language } from "../types";
 
 import CodeEditorTab from "./CodeEditorTab";
+import { useCodeStore } from "../hooks/useCodeStore";
 
 export default function CodeEditorWindow() {
+   const { code, setCodeUpdate } = useCodeStore();
    const [editorDirection, setEditorDirection] = React.useState<"row" | "column">("row");
 
-   const [code, setCode] = React.useState<{
-      languages: Record<Language, string>;
-   }>({
-      languages: {
-         html: "<h1>My Code Editor</h1>",
-         css: "@media (prefers-reduced-motion: no-preference) { a:nth-of-type(2) .logo { animation: logo-spin infinite 20s linear;} }",
-         javascript:
-            "// Welcome to the React Code Editor!\nfunction greet() {\n  console.log('Hello, world!');\n}\ngreet();",
-      },
-   });
-
    const onChange = (language: Language, data: string) => {
-      setCode({ ...code, languages: { ...code.languages, [language]: data } });
+      setCodeUpdate(language, data);
    };
 
    const defaultLanguages: Language[] = ["html", "css", "javascript"];
@@ -33,8 +24,8 @@ export default function CodeEditorWindow() {
             gridTemplateRows={editorDirection === "row" ? "1fr 5px 1fr 5px 1fr" : "1fr"}
             gridTemplateColumns={editorDirection === "column" ? "1fr 5px 1fr 5px 1fr" : "1fr"}
             cursor={editorDirection === "column" ? "col-resize" : "row-resize"}
-            // @ts-expect-error - Property 'render' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<Split> & Readonly<SplitProps>'.
-            render={({
+         >
+            {({
                getGridProps,
                getGutterProps,
             }: {
@@ -56,6 +47,7 @@ export default function CodeEditorWindow() {
                               code={code.languages[language]}
                               onChange={onChange}
                            />
+                           {/* <MonacoEditor value={code.languages[language]} language={language} /> */}
                            {index === defaultLanguages.length - 1 ? null : (
                               <div
                                  className={cn(gutterName, gutterName + "-" + gutterIndex)}
@@ -67,7 +59,7 @@ export default function CodeEditorWindow() {
                   })}
                </div>
             )}
-         />
+         </Split>
       </div>
    );
 }
