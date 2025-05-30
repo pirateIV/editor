@@ -2,11 +2,19 @@ import React from "react";
 import Editor from "@monaco-editor/react";
 import type { Language } from "../types";
 import { cn } from "../lib/utils";
+import { Icons } from "./icons";
+import { emmetHTML } from "emmet-monaco-es";
 
 const editorLanguages = {
    html: "HTML",
    css: "CSS",
    javascript: "JavaScript",
+};
+
+const icons = {
+   html: <Icons.HTML className="size-5" />,
+   css: <Icons.CSS className="size-5" />,
+   javascript: <Icons.JavaScript className="size-5" />,
 };
 
 interface CodeEditorTabProps {
@@ -35,31 +43,34 @@ export default function CodeEditorTab({
    return (
       <div
          className={cn(
-            "overflow-hidden not-first:rounded-t-lg h-full not-last:rounded-b-lg bg-[#fffffe]",
+            "relative z-50 not-first:rounded-t-lg h-full not-last:rounded-b-lg bg-[#fffffe]",
             className
          )}
          {...props}
       >
          <div className="bg-white" data-lang-mode={language}>
-            <div className="bg-gray-200 w-fit inline-block py-1 px-[calc(30px)] border border-t-4 border-gray-300 border-t-gray-400">
-               {editorLanguages[language]}
+            <div className="bg-gray-200 text-sm flex gap-2 items-center py-1 px-2 w-32 justify-center border border-t-4 border-gray-300 border-t-gray-400">
+               {icons[language]}
+               <span> {editorLanguages[language]}</span>
             </div>
          </div>
          <Editor
             value={value}
             defaultLanguage={language}
             language={language}
+            onChange={handleEditorChange}
             options={{
                fontFamily: "Menlo",
                fontWeight: "600",
                fontSize: 13,
                automaticLayout: true,
                minimap: { enabled: false },
+               folding: true,
+               formatOnPaste: true,
             }}
-            onChange={handleEditorChange}
-            // onMount={(editor, monaco) => {
-            //    console.log(editor, monaco);
-            // }}
+            beforeMount={(monaco) => {
+               emmetHTML(monaco);
+            }}
          />
       </div>
    );

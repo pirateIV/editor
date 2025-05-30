@@ -1,67 +1,13 @@
 @import "tailwindcss";
 
-@theme {
-   --gutter-size: 2px;
-}
-
 :root {
-   font-family: "SF Pro Display";
+   font-family: "Geist", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
    font-synthesis: none;
    text-rendering: optimizeLegibility;
    -moz-osx-font-smoothing: grayscale;
-
-   /* color-scheme: dark; */
 }
 
-/* ============== EDITOR GRID STYLES ============== */
-.grid {
-   display: grid;
-   grid-template-rows: 1fr var(--gutter-size) 1fr var(--gutter-size) 1fr;
-
-   /* &:has(> .gutter-col.col-2-row-2) {
-      grid-template-columns: 1fr var(--gutter-size) 1fr;
-   }
-   &:has(> .gutter-row.col-2-row-2) {
-      grid-template-rows: 1fr var(--gutter-size) 1fr;
-   } */
-
-
-   &:has(> .gutter-col) {
-      /* --gutter-size: 5px; */
-   }
-   &:has(> .gutter-row) {
-      /* --gutter-size: 5px; */
-      grid-template-rows: 1fr var(--gutter-size) 1fr var(--gutter-size) 1fr;
-   }
-
-   .gutter-col,
-   .gutter-row {
-      @apply bg-gray-200 hover:bg-gray-300;
-   }
-
-   .gutter-col {
-      grid-row: 1/-1;
-      cursor: col-resize;
-   }
-
-   .gutter-row {
-      grid-column: 1/-1;
-      cursor: row-resize;
-   }
-
-   .gutter-col-1 {
-      grid-column: 2;
-   }
-
-   .gutter-col-3 {
-      grid-column: 4;
-   }
-
-   .gutter-row-1 {
-      grid-row: 2;
-   }
-
-   .gutter-row-3 {
-      grid-row: 4;
-   }
+/* Add this to your global CSS */
+.monaco-editor .suggest-widget {
+   z-index: 1000 !important;
 }

@@ -25,7 +25,10 @@ const layoutIcons = [
 export default function App() {
    return (
       <div className="h-screen flex flex-col">
-         <div className="p-2 border-b border-gray-300">
+         <div className="p-2 flex items-center justify-baseline border-b border-gray-300">
+            <div className="px-2 *:stroke-gray-800">
+               <Icons.Fragment strokeWidth={2}/>
+            </div>
             <div className="flex ml-auto rounded-lg bg-white w-fit">
                {layoutIcons.map(({ label, icon }) => (
                   <button key={label} className="h-full flex items-center justify-center">
@@ -36,14 +39,17 @@ export default function App() {
             </div>
          </div>
          <PanelGroup direction="horizontal">
-            <Panel>
+            <Panel className="relative z-50 h-full">
+               {/* <div className="w-1/2"> */}
                <CodeEditorWindow />
+               {/* </div> */}
             </Panel>
-            <PanelResizeHandle className="w-1"/>
+            {/* <PanelResizeHandle className="w-1"/> */}
             <Panel>
                <CodeEditorPreview />
             </Panel>
          </PanelGroup>
+         <div className="h-4 border-t-2 border-t-gray-200 bg-white"></div>
       </div>
    );
 }

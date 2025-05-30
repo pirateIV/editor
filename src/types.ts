@@ -1,3 +1,5 @@
+export type Children = { children: React.ReactNode  }
+
 export type Language = "html" | "css" | "javascript";
 
 export interface SplitGridRenderProps {
