@@ -14,6 +14,8 @@ export default function CodeEditorWindow() {
 
    const defaultLanguages: Language[] = ["html", "css", "javascript"];
 
+   console.log(code)
+
    return (
       <div className="flex flex-col h-full">
          <PanelGroup direction="vertical">

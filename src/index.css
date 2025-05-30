@@ -7,7 +7,6 @@
    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Add this to your global CSS */
-.monaco-editor .suggest-widget {
-   z-index: 1000 !important;
-}
+/* .monaco-menu-container, .monaco-menu {
+   z-index: 300 !important;
+} */

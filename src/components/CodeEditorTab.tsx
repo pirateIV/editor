@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import type { Language } from "../types";
 import { cn } from "../lib/utils";
@@ -12,9 +12,9 @@ const editorLanguages = {
 };
 
 const icons = {
-   html: <Icons.HTML className="size-5" />,
-   css: <Icons.CSS className="size-5" />,
-   javascript: <Icons.JavaScript className="size-5" />,
+   html: <Icons.HTML className="size-4" />,
+   css: <Icons.CSS className="size-4" />,
+   javascript: <Icons.JavaScript className="size-4" />,
 };
 
 interface CodeEditorTabProps {
@@ -28,7 +28,7 @@ interface CodeEditorTabProps {
 export default function CodeEditorTab({
    className = "",
    onChange,
-   code = "",
+   code,
    language = "html",
    ...props
 }: CodeEditorTabProps) {
@@ -40,10 +40,16 @@ export default function CodeEditorTab({
       onChange(language, valueToSet);
    };
 
+   useEffect(() => {
+      if(code) {
+         setValue(code)
+      }
+   },[code])
+
    return (
       <div
          className={cn(
-            "relative z-50 not-first:rounded-t-lg h-full not-last:rounded-b-lg bg-[#fffffe]",
+            "not-first:rounded-t-lg h-full not-last:rounded-b-lg bg-[#fffffe]",
             className
          )}
          {...props}
