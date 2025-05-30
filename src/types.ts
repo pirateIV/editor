@@ -1,4 +1,4 @@
-export type Children = { children: React.ReactNode  }
+export type Children = { children: React.ReactNode };
 
 export type Language = "html" | "css" | "javascript";
 
@@ -9,3 +9,5 @@ export interface SplitGridRenderProps {
       index: number
    ) => React.HTMLAttributes<HTMLDivElement>;
 }
+
+export type EditorDirection = "horizontal" | "vertical" | "preview-only" | "responsive";

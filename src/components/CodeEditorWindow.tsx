@@ -1,34 +1,43 @@
 import React from "react";
-import type { Language } from "../types";
+import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
 import CodeEditorTab from "./CodeEditorTab";
 import { useCodeStore } from "../hooks/useCodeStore";
-import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
+import { useEditorDirection } from "../hooks/useEditorDirection";
+import type { Language } from "../types";
+import { cn } from "../lib/utils";
+
+const defaultLanguages: Language[] = ["html", "css", "javascript"];
 
 export default function CodeEditorWindow() {
    const { code, setCodeUpdate } = useCodeStore();
+   const { editorDirection } = useEditorDirection();
 
    const onChange = (language: Language, data: string) => {
       setCodeUpdate(language, data);
    };
 
-   const defaultLanguages: Language[] = ["html", "css", "javascript"];
-
-   console.log(code)
-
    return (
       <div className="flex flex-col h-full">
-         <PanelGroup direction="vertical">
+         {/* Flip the code editor to direction opposite of the layout  */}
+         <PanelGroup direction={editorDirection === "vertical" ? "horizontal" : "vertical"}> 
             {defaultLanguages.map((language, index) => (
                <React.Fragment key={language}>
-                  <Panel minSize={6}>
+                  <Panel minSize={5}>
                      <CodeEditorTab
                         language={language}
                         code={code.languages[language]}
                         onChange={onChange}
                      />
                   </Panel>
-                  {index < defaultLanguages.length - 1 && <PanelResizeHandle className="h-1"/>}
+                  {index < defaultLanguages.length - 1 && (
+                     <PanelResizeHandle
+                        className={cn(
+                           editorDirection === "vertical" ? "w-1" : "h-1",
+                           "border border-gray-300 hover:bg-gray-300"
+                        )}
+                     />
+                  )}
                </React.Fragment>
             ))}
          </PanelGroup>
