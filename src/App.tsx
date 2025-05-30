@@ -27,7 +27,7 @@ export default function App() {
       <div className="h-screen flex flex-col">
          <div className="p-2 flex items-center justify-baseline border-b border-gray-300">
             <div className="px-2 *:stroke-gray-800">
-               <Icons.Fragment strokeWidth={2}/>
+               <Icons.Fragment strokeWidth={2} />
             </div>
             <div className="flex ml-auto rounded-lg bg-white w-fit">
                {layoutIcons.map(({ label, icon }) => (
@@ -40,11 +40,9 @@ export default function App() {
          </div>
          <PanelGroup direction="horizontal">
             <Panel className="relative z-50 h-full">
-               {/* <div className="w-1/2"> */}
                <CodeEditorWindow />
-               {/* </div> */}
             </Panel>
-            {/* <PanelResizeHandle className="w-1"/> */}
+            <PanelResizeHandle className="w-1" />
             <Panel>
                <CodeEditorPreview />
             </Panel>
