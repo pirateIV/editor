@@ -1,11 +1,11 @@
 import React from "react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
+import { cn } from "../lib/utils";
 import CodeEditorTab from "./CodeEditorTab";
 import { useCodeStore } from "../hooks/useCodeStore";
 import { useEditorDirection } from "../hooks/useEditorDirection";
 import type { Language } from "../types";
-import { cn } from "../lib/utils";
 
 const defaultLanguages: Language[] = ["html", "css", "javascript"];
 
@@ -34,7 +34,7 @@ export default function CodeEditorWindow() {
                      <PanelResizeHandle
                         className={cn(
                            editorDirection === "vertical" ? "w-1" : "h-1",
-                           "border border-gray-300 hover:bg-gray-300"
+                           "border border-gray-300 hover:bg-gray-300 dark:border-gray-800 dark:bg-gray-900 dark:hover:bg-gray-800"
                         )}
                      />
                   )}
