@@ -41,15 +41,15 @@ export default function App() {
    const [panelDirection, setPanelDirection] = useState<PanelDirection | undefined>(undefined);
 
    useEffect(() => {
+      // let lastHorizontalOrVertical: PanelDirection;
+
       /* Persist the direction of the panels to ignore custom editor options */
       if (editorDirection === "horizontal" || editorDirection === "vertical") {
          setPanelDirection(editorDirection === "horizontal" ? "horizontal" : "vertical");
-      } else {
-         setEditorDirection(panelDirection!);
       }
    }, [editorDirection]);
 
-   console.log(editorDirection, panelDirection)
+   console.log(editorDirection, panelDirection);
 
    return (
       <div className="h-screen flex flex-col">
@@ -57,7 +57,7 @@ export default function App() {
             <div className="px-2 *:stroke-gray-800">
                <Icons.Fragment strokeWidth={2} />
             </div>
-            <div className="flex ml-auto rounded-lg bg-white w-fit">
+            <div className="flex ml-auto rounded-lg bg-white border border-gray-200 w-fit">
                {layoutIcons.map(({ label, icon: Icon, layoutMode }) => (
                   <button
                      key={label}
@@ -71,20 +71,30 @@ export default function App() {
             </div>
          </div>
 
-         <PanelGroup direction={panelDirection!}>
-            <Panel>
-               <CodeEditorWindow />
-            </Panel>
-            <PanelResizeHandle
-               className={cn(
-                  panelDirection === "horizontal" ? "w-1" : "h-1",
-                  "border border-gray-300 hover:bg-gray-300"
-               )}
-            />
-            <Panel>
-               <CodeEditorPreview />
-            </Panel>
-         </PanelGroup>
+         {editorDirection !== "preview-only" ? (
+            <>
+               <PanelGroup direction={panelDirection!}>
+                  <Panel>
+                     <CodeEditorWindow />
+                  </Panel>
+                  <PanelResizeHandle
+                     className={cn(
+                        panelDirection === "horizontal" ? "w-1" : "h-1",
+                        "border border-gray-300 hover:bg-gray-300"
+                     )}
+                  />
+                  <Panel>
+                     <CodeEditorPreview />
+                  </Panel>
+               </PanelGroup>
+            </>
+         ) : (
+            <PanelGroup direction={panelDirection!}>
+               <Panel>
+                  <CodeEditorPreview />
+               </Panel>
+            </PanelGroup>
+         )}
          <div className="h-4 border-t-2 border-t-gray-200 bg-white"></div>
       </div>
    );

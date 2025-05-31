@@ -10,3 +10,7 @@
 /* .monaco-menu-container, .monaco-menu {
    z-index: 300 !important;
 } */
+
+.btn {
+   box-shadow: 0 0 0.5px #0a0d1233, inset 0 -0.5px 0.5px #0a0d121a, 0 1px 1px -0.5px #0a0d1221, 0 1px 2px #0a0d121a, 0 -1px 1px #0a0d1202;
+}
