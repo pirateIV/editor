@@ -10,5 +10,5 @@ export default function CodeEditorPreview() {
       setSrcDoc(updateIframeSrc(code.languages));
    }, [code]);
 
-   return <iframe srcDoc={srcDoc} className="size-full bg-white"></iframe>;
+   return <iframe srcDoc={srcDoc} className="size-full bg-white transition-all"></iframe>;
 }
