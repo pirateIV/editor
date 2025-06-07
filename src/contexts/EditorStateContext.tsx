@@ -1,14 +1,21 @@
 import React, { createContext, useContext, useEffect, useState, type SetStateAction } from "react";
 import type { Children, EditorDirection } from "../types";
 
-const COOKIE_NAME = "horizontal";
+const COOKIE_NAME = "layout";
 
 function setDirectionCookie(direction: string) {
    if (typeof window === "undefined") return;
+   document.cookie = `${COOKIE_NAME}=${direction}; path=/; max-age=31536000; SameSite=Lax;${window.location.protocol === "https:" ? " Secure;" : ""}`;
+}
 
-   document.cookie = `${COOKIE_NAME}=${direction}; path=/; max-age=31536000; SameSite=Lax;n ${
-      window.location.protocol === "https" ? "Secure" : ""
-   }`;
+function getDirectionCookie(): EditorDirection | undefined {
+   if (typeof document === "undefined") return undefined;
+   const match = document.cookie.match(new RegExp(`(?:^|; )${COOKIE_NAME}=([^;]*)`));
+   const value = match?.[1];
+   if (value === "horizontal" || value === "vertical" || value === "preview-only") {
+      return value as EditorDirection;
+   }
+   return undefined;
 }
 
 type EditorContextType = {
@@ -19,7 +26,9 @@ type EditorContextType = {
 const EditorContext = createContext<EditorContextType | undefined>(undefined);
 
 export const EditorProvider = ({ children }: Children) => {
-   const [editorDirection, setEditorDirection] = useState<EditorDirection>("horizontal");
+   const [editorDirection, setEditorDirection] = useState<EditorDirection>(() => {
+      return getDirectionCookie() || "horizontal";
+   });
 
    useEffect(() => {
       setDirectionCookie(editorDirection);

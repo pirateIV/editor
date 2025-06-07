@@ -2,10 +2,10 @@ import React from "react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
 import { cn } from "../lib/utils";
-import CodeEditorTab from "./CodeEditorTab";
-import { useCodeStore } from "../hooks/useCodeStore";
-import { useEditorDirection } from "../hooks/useEditorDirection";
 import type { Language } from "../types";
+import { useCodeStore } from "../hooks/useCodeStore";
+import { useEditorDirection } from "../contexts/EditorStateContext";
+import CodeEditorTab from "./CodeEditorTab";
 
 const defaultLanguages: Language[] = ["html", "css", "javascript"];
 
