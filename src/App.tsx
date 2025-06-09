@@ -44,7 +44,7 @@ export default function App() {
          ) : (
             <PanelGroup direction={panelDirection!}>
                <Panel>
-                  <CodeEditorPreview />
+                  <CodeEditorPreview />   
                </Panel>
             </PanelGroup>
          )}

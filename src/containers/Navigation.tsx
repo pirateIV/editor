@@ -4,9 +4,10 @@ import { IconCodeDots, IconPencil, IconRefresh, IconSettings } from "@tabler/ico
 import { useEditorDirection } from "../contexts/EditorStateContext";
 import type { EditorDirection } from "../types";
 import { Icons } from "../components/icons";
-import IconButton from "../components/Navigation/IconButton";
+import IconButton from "../components/Navigation/icon-button";
 import SettingsDialog from "../components/SettingsDialog";
 import Divider from "../components/common/divider";
+import LayoutButton from "../components/Navigation/layout-button";
 
 const layoutIcons: {
    label: string;
@@ -38,7 +39,7 @@ const layoutIcons: {
 export default function Navigation() {
    const { setEditorDirection } = useEditorDirection();
 
-   const [projectName, setProjectName] = useState("Untitled");
+   const [projectName, setProjectName] = useState("Untitled...");
    const [isEditing, setIsEditing] = useState(false);
    const [isOpen, setIsOpen] = useState(false);
 
@@ -58,7 +59,7 @@ export default function Navigation() {
                   autoFocus
                />
             ) : (
-               <span className="text-gray-700 font-medium dark:text-gray-400">{projectName}</span>
+               <span className="text-gray-400 font-medium dark:text-gray-400">{projectName}</span>
             )}
             <button onClick={() => setIsEditing(true)}>
                <span className="inline text-gray-700 dark:text-gray-400">
@@ -67,22 +68,22 @@ export default function Navigation() {
             </button>
          </div>
          <div className="flex items-center gap-4">
-            <div>
-               <IconButton icon={IconRefresh} />
-            </div>
+            <IconButton icon={IconRefresh} />
+
             <Divider />
+
             <div className="ml-auto w-fit flex bg-white rounded-lg border border-gray-300 shadow-2xs shadow-gray-100 dark:shadow-gray-950/40 dark:bg-gray-800 dark:border-0 dark:border-t dark:border-t-gray-700">
                {layoutIcons.map(({ label, icon: Icon, layoutMode }) => (
-                  <button
+                  <LayoutButton
                      key={label}
-                     className="h-full flex justify-center items-center"
+                     label={label}
                      onClick={() => (layoutMode ? setEditorDirection(layoutMode) : null)}
                   >
-                     <span className="sr-only">{label}</span>
                      <Icon />
-                  </button>
+                  </LayoutButton>
                ))}
             </div>
+
             <div>
                <button
                   className="flex text-gray-500 transition-colors dark:text-gray-500 dark:hover:text-gray-200 hover:text-gray-600"
@@ -92,12 +93,12 @@ export default function Navigation() {
                      <IconSettings className="size-6" />
                   </span>
                </button>
-               <SettingsDialog open={isOpen} onClose={close} />
+               <SettingsDialog open={isOpen} onClose={() => setIsOpen(false)} />
             </div>
+
             <Divider />
-            <div>
-               <button className="size-7 flex bg-pink-500 rounded-full"></button>
-            </div>
+
+            <button className="size-7 flex bg-pink-500 rounded-full"></button>
          </div>
       </div>
    );

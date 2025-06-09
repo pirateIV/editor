@@ -30,6 +30,10 @@ export function CodeStoreProvider({ children }: { children: ReactNode }) {
       const storedCode = JSON.parse(localStorage.getItem(STORAGE_KEY)!) || code;
       setCode(storedCode);
    }, []);
+   
+   useEffect(() => {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(code));
+   }, [code]);
 
    const setCodeUpdate = (language: Language, updatedCode: string) => {
       setCode({ ...code, languages: { ...code.languages, [language]: updatedCode } });
