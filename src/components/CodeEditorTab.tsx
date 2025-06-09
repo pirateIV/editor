@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Editor, { useMonaco } from "@monaco-editor/react";
+import Editor from "@monaco-editor/react";
 import { emmetHTML } from "emmet-monaco-es";
 import { IconBrandCss3, IconBrandJavascript, IconHtml } from "@tabler/icons-react";
 
-// import dracula from "../themes/Monokai.json";
+import abyss from "../themes/Abyss.json";
 
 import type { Language } from "../types";
 import { cn } from "../lib/utils";
@@ -35,10 +35,8 @@ export default function CodeEditorTab({
    language = "html",
    ...props
 }: CodeEditorTabProps) {
-   const monaco = useMonaco();
+   // const monaco = useMonaco();
    const [value, setValue] = useState(code);
-
-   const theme = import("../themes/Abyss.json");
 
    const handleEditorChange = (newValue: string | undefined) => {
       const valueToSet = newValue ?? "";
@@ -48,21 +46,21 @@ export default function CodeEditorTab({
 
    const handleEditorWillMount = (monaco: typeof import("monaco-editor") | undefined) => {
       emmetHTML(monaco);
-      monaco?.editor.defineTheme("abyss", JSON.parse(JSON.stringify(theme)));
-      monaco?.editor.setTheme("dracula");
+      monaco?.editor.defineTheme("abyss", JSON.parse(JSON.stringify(abyss)));
+      monaco?.editor.setTheme("abyss");
    };
 
-   useEffect(() => {
-      async function loadEditorTheme() {
-         if (theme) {
-            monaco?.editor.defineTheme("abyss", JSON.parse(JSON.stringify(theme)));
-            monaco?.editor.setTheme("abyss");
-         } else {
-            monaco?.editor.setTheme("vs-dark");
-         }
-      }
-      loadEditorTheme();
-   }, [monaco?.editor]);
+   // useEffect(() => {
+   //    async function loadEditorTheme() {
+   //       if (theme) {
+   //          monaco?.editor.defineTheme("abyss", JSON.parse(JSON.stringify(abyss)));
+   //          monaco?.editor.setTheme("abyss");
+   //       } else {
+   //          monaco?.editor.setTheme("vs-dark");
+   //       }
+   //    }
+   //    loadEditorTheme();
+   // }, [monaco?.editor]);
 
    useEffect(() => {
       if (code) {
