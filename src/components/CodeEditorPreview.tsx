@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
 import { useCodeStore } from "../hooks/useCodeStore";
 import { updateIframeSrc } from "../helpers";
+import { cn } from "../lib/utils";
 
-export default function CodeEditorPreview() {
+export default function CodeEditorPreview({ className }: { className?: string }) {
    const { code } = useCodeStore();
 
    const iframeRef = useRef<HTMLIFrameElement | null>(null);
@@ -28,5 +29,10 @@ export default function CodeEditorPreview() {
       return () => clearTimeout(debounced);
    }, [code]);
 
-   return <iframe ref={iframeRef} className="size-full bg-white transition-all"></iframe>;
+   return (
+      <iframe
+         ref={iframeRef}
+         className={cn("size-full bg-white duration-300", className!)}
+      ></iframe>
+   );
 }

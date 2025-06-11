@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
 import { emmetHTML } from "emmet-monaco-es";
-import { IconBrandCss3, IconBrandJavascript, IconHtml } from "@tabler/icons-react";
 
 import abyss from "../themes/Abyss.json";
 
 import type { Language } from "../types";
 import { cn } from "../lib/utils";
+import { Icons } from "./icons";
 
 const editorLanguages = {
    html: "HTML",
    css: "CSS",
-   javascript: "JavaScript",
+   javascript: "JS",
 };
 
 const icons = {
-   html: <IconHtml className="size-4" />,
-   css: <IconBrandCss3 className="size-4" />,
-   javascript: <IconBrandJavascript className="size-4" />,
+   html: <Icons.HTML className="size-4.5"/>,
+   css: <Icons.CSS className="size-4.5" />,
+   javascript: <Icons.JavaScript className="size-4.5" />,
 };
 
 interface CodeEditorTabProps {
@@ -50,18 +50,6 @@ export default function CodeEditorTab({
       monaco?.editor.setTheme("abyss");
    };
 
-   // useEffect(() => {
-   //    async function loadEditorTheme() {
-   //       if (theme) {
-   //          monaco?.editor.defineTheme("abyss", JSON.parse(JSON.stringify(abyss)));
-   //          monaco?.editor.setTheme("abyss");
-   //       } else {
-   //          monaco?.editor.setTheme("vs-dark");
-   //       }
-   //    }
-   //    loadEditorTheme();
-   // }, [monaco?.editor]);
-
    useEffect(() => {
       if (code) {
          setValue(code);
@@ -77,7 +65,7 @@ export default function CodeEditorTab({
          {...props}
       >
          <div className="bg-white dark:bg-gray-900" data-lang-mode={language}>
-            <div className="w-32 flex justify-center items-center gap-2 px-2 py-1 text-sm bg-gray-200 border border-t-4 border-gray-300 border-t-gray-400 dark:border-gray-800/80 dark:bg-gray-900 dark:border-t-gray-700">
+            <div className="w-24 flex justify-start items-center gap-2 ps-5 py-1 text-sm bg-gray-200 border border-t-4 border-gray-300 border-t-gray-400 dark:border-gray-800/80 dark:bg-gray-900 dark:border-t-gray-700">
                {icons[language]}
                <span className="dark:text-gray-100"> {editorLanguages[language]}</span>
             </div>
@@ -87,7 +75,7 @@ export default function CodeEditorTab({
             language={language}
             onChange={handleEditorChange}
             beforeMount={handleEditorWillMount}
-            theme="abyss"
+            // theme="abyss"
             options={{
                fontFamily: "Menlo",
                fontWeight: "600",
