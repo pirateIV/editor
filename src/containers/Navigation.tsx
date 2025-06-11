@@ -1,47 +1,13 @@
-import { useState } from "react";
-import { IconCodeDots, IconPencil, IconRefresh, IconSettings } from "@tabler/icons-react";
-
-import { useEditorDirection } from "../contexts/EditorStateContext";
-import type { EditorDirection } from "../types";
-import { Icons } from "../components/icons";
-import IconButton from "../components/Navigation/icon-button";
-import SettingsDialog from "../components/SettingsDialog";
+import { forwardRef, useState } from "react";
+import { IconCodeDots, IconPencil } from "@tabler/icons-react";
+import LayoutControls from "../components/navigation/layout-controls";
+import Settings from "../components/Settings";
 import Divider from "../components/common/divider";
-import LayoutButton from "../components/Navigation/layout-button";
-
-const layoutIcons: {
-   label: string;
-   layoutMode?: EditorDirection;
-   icon: (props: React.SVGProps<SVGSVGElement>) => React.JSX.Element;
-}[] = [
-   {
-      label: "Switch to vertical split layout",
-      layoutMode: "horizontal",
-      icon: Icons["VerticalSplit"],
-   },
-   {
-      label: "Switch to horizontal split layout",
-      layoutMode: "vertical",
-      icon: Icons["HorizonalSplit"],
-   },
-   {
-      label: "Switch to preview-only layout",
-      layoutMode: "preview-only",
-      icon: Icons["PreviewOnly"],
-   },
-   {
-      label: "Switch to responsive design mode",
-      // layoutMode: "responsive",
-      icon: Icons["ResponsiveDesign"],
-   },
-];
+import Refresh from "../components/Refresh";
 
 export default function Navigation() {
-   const { setEditorDirection } = useEditorDirection();
-
    const [projectName, setProjectName] = useState("Untitled...");
    const [isEditing, setIsEditing] = useState(false);
-   const [isOpen, setIsOpen] = useState(false);
 
    return (
       <div className="flex justify-between items-center p-2 px-5 border-b border-gray-300 dark:border-gray-800">
@@ -68,38 +34,20 @@ export default function Navigation() {
             </button>
          </div>
          <div className="flex items-center gap-4">
-            <IconButton icon={IconRefresh} />
-
+            <Refresh />
             <Divider />
-
-            <div className="ml-auto w-fit flex bg-white rounded-lg border border-gray-300 shadow-2xs shadow-gray-100 dark:shadow-gray-950/40 dark:bg-gray-800 dark:border-0 dark:border-t dark:border-t-gray-700">
-               {layoutIcons.map(({ label, icon: Icon, layoutMode }) => (
-                  <LayoutButton
-                     key={label}
-                     label={label}
-                     onClick={() => (layoutMode ? setEditorDirection(layoutMode) : null)}
-                  >
-                     <Icon />
-                  </LayoutButton>
-               ))}
-            </div>
-
-            <div>
-               <button
-                  className="flex text-gray-500 transition-colors dark:text-gray-500 dark:hover:text-gray-200 hover:text-gray-600"
-                  onClick={() => setIsOpen(true)}
-               >
-                  <span>
-                     <IconSettings className="size-6" />
-                  </span>
-               </button>
-               <SettingsDialog open={isOpen} onClose={() => setIsOpen(false)} />
-            </div>
-
+            <LayoutControls />
+            <Settings />
             <Divider />
-
             <button className="size-7 flex bg-pink-500 rounded-full"></button>
          </div>
       </div>
    );
 }
+
+// Update your Navigation component to forward refs
+export const NavigationWithRef = forwardRef<HTMLDivElement>((_props, ref) => (
+   <div ref={ref}>
+      <Navigation />
+   </div>
+));
