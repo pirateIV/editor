@@ -64,9 +64,12 @@ export function SettingsDialog({ open, onClose }: SettingsDialogProps) {
                                     onChange={(e) => setCurrentAppName(e.target.value)}
                                  />
                               </div> */}
-                              <div >
-                                 <label htmlFor="appName" className="text-sm font-medium block mb-1">
-                                 <span className="text-gray-600">Editor:</span>  Font Size
+                              <div>
+                                 <label
+                                    htmlFor="appName"
+                                    className="text-sm font-medium block mb-1"
+                                 >
+                                    <span className="text-gray-600">Editor:</span> Font Size
                                  </label>
                                  <Input
                                     type="number"
@@ -76,9 +79,12 @@ export function SettingsDialog({ open, onClose }: SettingsDialogProps) {
                                     onChange={(e) => setCurrentAppName(e.target.value)}
                                  />
                               </div>
-                              <div >
-                                 <label htmlFor="appName" className="text-sm font-medium block mb-1">
-                                 <span className="text-gray-600">Editor:</span>  Font Family
+                              <div>
+                                 <label
+                                    htmlFor="appName"
+                                    className="text-sm font-medium block mb-1"
+                                 >
+                                    <span className="text-gray-600">Editor:</span> Font Family
                                  </label>
                                  <Input
                                     type="text"
@@ -105,13 +111,13 @@ export function SettingsDialog({ open, onClose }: SettingsDialogProps) {
 
                         <div className="mt-6 flex justify-end gap-3">
                            <Button
-                              className="inline-flex items-center rounded-md bg-gray-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                              className="inline-flex items-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2"
                               onClick={onClose}
                            >
                               Cancel
                            </Button>
                            <Button
-                              className="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                              className="inline-flex items-center rounded-md bg-gray-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2"
                               onClick={onClose}
                            >
                               Save Changes

@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import React, { forwardRef, useState } from "react";
 import { IconPencil } from "@tabler/icons-react";
 
 import { useEditorState } from "../contexts/EditorStateContext";
@@ -6,10 +6,28 @@ import Settings from "../components/Settings";
 import Divider from "../components/common/divider";
 import Refresh from "../components/Refresh";
 import LayoutControls from "../components/layout-controls";
+import { Button } from "@headlessui/react";
+import { ExportOptionsDialog } from "../components/ExportOptionsDialog";
+
+const DEFAULT_APP_NAME = "Unititled...";
 
 export default function Navigation() {
    const { appName, setCurrentAppName } = useEditorState();
    const [isEditing, setIsEditing] = useState(false);
+   const [isOpen, setIsOpen] = useState(false);
+
+   function handleOnClick() {
+      if (appName === DEFAULT_APP_NAME) setCurrentAppName("");
+   }
+
+   function handleOnBlur() {
+      if (appName.trim() === "") setCurrentAppName(DEFAULT_APP_NAME);
+      setIsEditing(false);
+   }
+
+   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
+      setCurrentAppName(e.target.value);
+   }
 
    return (
       <div className="flex justify-between items-center p-2 px-5 border-b border-gray-300 dark:border-gray-800">
@@ -28,12 +46,18 @@ export default function Navigation() {
                   type="text"
                   value={appName}
                   className="bg-transparent outline-none font-medium border-none text-gray-700 dark:text-gray-200"
-                  onChange={(e) => setCurrentAppName(e.target.value)}
-                  onBlur={() => setIsEditing(false)}
+                  onClick={handleOnClick}
+                  onChange={handleOnChange}
+                  onBlur={handleOnBlur}
                   autoFocus
                />
             ) : (
-               <span className="text-gray-400 font-medium dark:text-gray-400">{appName}</span>
+               <span
+                  className="text-gray-400 font-medium dark:text-gray-400 cursor-pointer hover:text-gray-500 hover:bg-gray-200 px-1 rounded-md"
+                  onClick={() => setIsEditing(true)}
+               >
+                  {appName}
+               </span>
             )}
             <button onClick={() => setIsEditing(true)}>
                <span className="inline text-gray-700 dark:text-gray-400">
@@ -42,6 +66,13 @@ export default function Navigation() {
             </button>
          </div>
          <div className="flex items-center gap-4">
+            <Button
+               className="py-2 px-5 font-medium bg-gray-800 hover:bg-gray-700 text-white rounded-md text-sm me-8"
+               onClick={() => setIsOpen(true)}
+            >
+               Export
+            </Button>
+            <ExportOptionsDialog open={isOpen} onClose={() => setIsOpen(false)} />
             <Refresh />
             <Divider />
             <LayoutControls />
