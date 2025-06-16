@@ -1,13 +1,16 @@
 import { createRoot } from "react-dom/client";
-import "./index.css";
 import App from "./App.tsx";
 import { CodeStoreProvider } from "./hooks/useCodeStore";
 import { EditorProvider } from "./contexts/EditorDirectionContext";
+import { EditorStateProvider } from "./contexts/EditorStateContext";
+import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
    <EditorProvider>
-      <CodeStoreProvider>
-         <App />
-      </CodeStoreProvider>
+      <EditorStateProvider>
+         <CodeStoreProvider>
+            <App />
+         </CodeStoreProvider>
+      </EditorStateProvider>
    </EditorProvider>
 );

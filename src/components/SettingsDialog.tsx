@@ -4,9 +4,11 @@ import {
    Dialog,
    DialogPanel,
    DialogTitle,
+   Input,
    Transition,
    TransitionChild,
 } from "@headlessui/react";
+import { useEditorState } from "../contexts/EditorStateContext";
 
 interface SettingsDialogProps {
    open: boolean;
@@ -14,6 +16,8 @@ interface SettingsDialogProps {
 }
 
 export function SettingsDialog({ open, onClose }: SettingsDialogProps) {
+   const { appName, setCurrentAppName } = useEditorState();
+
    return (
       <Transition appear show={open} as={React.Fragment}>
          <Dialog as="div" className="relative z-50 focus:outline-none" onClose={onClose}>
@@ -45,6 +49,59 @@ export function SettingsDialog({ open, onClose }: SettingsDialogProps) {
                         <DialogTitle as="h3" className="text-xl font-semibold leading-6 mb-4">
                            Editor Settings
                         </DialogTitle>
+
+                        <form onSubmit={(e) => e.preventDefault()}>
+                           <div className="space-y-5">
+                              {/* <div>
+                                 <label htmlFor="appName" className="text-sm block mb-1">
+                                    App Name
+                                 </label>
+                                 <Input
+                                    type="text"
+                                    id="appName"
+                                    value={appName}
+                                    className="p-1 ps-3 text-sm rounded-md border border-gray-300"
+                                    onChange={(e) => setCurrentAppName(e.target.value)}
+                                 />
+                              </div> */}
+                              <div >
+                                 <label htmlFor="appName" className="text-sm font-medium block mb-1">
+                                 <span className="text-gray-600">Editor:</span>  Font Size
+                                 </label>
+                                 <Input
+                                    type="number"
+                                    id="appName"
+                                    value="14"
+                                    className="p-1 ps-3 text-sm rounded-md border border-gray-300"
+                                    onChange={(e) => setCurrentAppName(e.target.value)}
+                                 />
+                              </div>
+                              <div >
+                                 <label htmlFor="appName" className="text-sm font-medium block mb-1">
+                                 <span className="text-gray-600">Editor:</span>  Font Family
+                                 </label>
+                                 <Input
+                                    type="text"
+                                    id="appName"
+                                    value="Menlo"
+                                    className="p-1 ps-3 text-sm rounded-md border border-gray-300"
+                                    onChange={(e) => setCurrentAppName(e.target.value)}
+                                 />
+                              </div>
+                              <div>
+                                 <label htmlFor="appName" className="text-sm block mb-1">
+                                    App Name
+                                 </label>
+                                 <Input
+                                    type="text"
+                                    id="appName"
+                                    value={appName}
+                                    className="p-1 ps-3 text-sm rounded-md border border-gray-300"
+                                    onChange={(e) => setCurrentAppName(e.target.value)}
+                                 />
+                              </div>
+                           </div>
+                        </form>
 
                         <div className="mt-6 flex justify-end gap-3">
                            <Button
