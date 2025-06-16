@@ -8,7 +8,7 @@ export default function IconButton({
 } & React.ComponentProps<"button">) {
    return (
       <button
-         className="flex text-gray-500 transition-colors dark:text-gray-500 dark:hover:text-gray-200 hover:text-gray-600"
+         className="flex items-center justify-center text-gray-500 transition-colors dark:text-gray-500 dark:hover:text-gray-200 hover:text-gray-600"
          {...props}
       >
          <span>

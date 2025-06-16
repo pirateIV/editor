@@ -18,7 +18,6 @@ const intialData = {
    html: "",
    css: "",
    javascript: ""
-   // javascript: `console.log([].length);console.log(Object.keys({ name: "Benjamin" }).length); let person = { name: "Benjamin", workplace: "Google" };console.log(Object.assign(person, { workplace: "Microsoft" }))`,
 };
 
 export function CodeStoreProvider({ children }: { children: ReactNode }) {
