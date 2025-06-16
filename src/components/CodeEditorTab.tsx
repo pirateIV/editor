@@ -6,19 +6,7 @@ import abyss from "../themes/Abyss.json";
 
 import type { Language } from "../types";
 import { cn } from "../lib/utils";
-import { Icons } from "./icons";
-
-const editorLanguages = {
-   html: "HTML",
-   css: "CSS",
-   javascript: "JS",
-};
-
-const icons = {
-   html: <Icons.HTML className="size-4.5"/>,
-   css: <Icons.CSS className="size-4.5" />,
-   javascript: <Icons.JavaScript className="size-4.5" />,
-};
+import CodeEditorHeader from "./CodeEditorHeader";
 
 interface CodeEditorTabProps {
    className?: React.HTMLAttributes<HTMLDivElement>["className"];
@@ -64,12 +52,7 @@ export default function CodeEditorTab({
          )}
          {...props}
       >
-         <div className="bg-white dark:bg-gray-900" data-lang-mode={language}>
-            <div className="w-24 flex justify-start items-center gap-2 ps-5 py-1 text-sm bg-gray-200 border border-t-4 border-gray-300 border-t-gray-400 dark:border-gray-800/80 dark:bg-gray-900 dark:border-t-gray-700">
-               {icons[language]}
-               <span className="dark:text-gray-100"> {editorLanguages[language]}</span>
-            </div>
-         </div>
+         <CodeEditorHeader language={language} />
          <Editor
             value={value}
             language={language}
@@ -79,12 +62,13 @@ export default function CodeEditorTab({
             options={{
                fontFamily: "Menlo",
                fontWeight: "600",
-               fontSize: 13,
+               fontSize: 14,
                automaticLayout: true,
                minimap: { enabled: false },
                folding: true,
                formatOnPaste: true,
                codeLens: true,
+               tabSize: 2,
             }}
          />
       </div>
