@@ -1,6 +1,6 @@
 import React from "react";
 import { useEditorDirection } from "../contexts/EditorDirectionContext";
-import LayoutButton from "./navigation/layout-button";
+import LayoutButton from "./layout-button";
 import { cn } from "../lib/utils";
 import type { EditorDirection } from "../types";
 import { Icons } from "./icons";
