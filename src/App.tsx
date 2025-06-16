@@ -4,7 +4,7 @@ import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
 import { cn } from "./lib/utils";
-import { useEditorDirection } from "./contexts/EditorStateContext";
+import { useEditorDirection } from "./contexts/EditorDirectionContext";
 import { FooterWithRef } from "./containers/Footer";
 import { NavigationWithRef } from "./containers/Navigation";
 import CodeEditorPreview from "./components/CodeEditorPreview";

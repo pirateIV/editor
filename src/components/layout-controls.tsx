@@ -1,9 +1,9 @@
 import React from "react";
-import { useEditorDirection } from "../../contexts/EditorStateContext";
+import { useEditorDirection } from "../contexts/EditorDirectionContext";
 import LayoutButton from "./layout-button";
-import { cn } from "../../lib/utils";
-import type { EditorDirection } from "../../types";
-import { Icons } from "../icons";
+import { cn } from "../lib/utils";
+import type { EditorDirection } from "../types";
+import { Icons } from "./icons";
 
 const layoutIcons: {
    label: string;
