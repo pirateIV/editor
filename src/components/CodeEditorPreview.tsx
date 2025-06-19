@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useCodeStore } from "../hooks/useCodeStore";
-import { updateIframeSrc } from "../helpers";
+import { constructHtmlDocument } from "../helpers";
 import { cn } from "../lib/utils";
 
 export default function CodeEditorPreview({ className }: { className?: string }) {
@@ -14,7 +14,9 @@ export default function CodeEditorPreview({ className }: { className?: string })
          if (!iframe) return;
 
          // Construct the full HTML document string from the code
-         const sourceDoc = updateIframeSrc(code.languages);
+         const sourceDoc = constructHtmlDocument(code.languages, {
+            type: "single",
+         });
 
          // Access the iframe's internal document
          const iframeDoc = iframe.contentDocument;

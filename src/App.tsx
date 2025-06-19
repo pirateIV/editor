@@ -56,7 +56,7 @@ export default function App() {
                      panelDirection === "horizontal"
                         ? "w-2 hover:w-3 transition-all duration-300"
                         : "h-2 hover:h-3 transition-all duration-300",
-                     "bg-gray-200 hover:bg-blue-400 dark:bg-gray-700 dark:hover:bg-blue-500",
+                     "bg-gray-200 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-500",
                      "relative group"
                   )}
                >
@@ -69,7 +69,7 @@ export default function App() {
                      <div
                         className={cn(
                            panelDirection === "horizontal" ? "w-1 h-8" : "h-1 w-8",
-                           "bg-blue-500 dark:bg-blue-400 rounded-full"
+                           "bg-gray-500 dark:bg-gray-400 rounded-full"
                         )}
                      />
                   </div>

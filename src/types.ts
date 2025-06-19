@@ -11,3 +11,5 @@ export interface SplitGridRenderProps {
 }
 
 export type EditorDirection = "horizontal" | "vertical" | "preview-only" | "responsive";
+
+export type ExportOption = "multi" | "single";  

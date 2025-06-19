@@ -1,18 +1,19 @@
 import React, { forwardRef, useState } from "react";
+import { Button } from "@headlessui/react";
 import { IconPencil } from "@tabler/icons-react";
 
 import { useEditorState } from "../contexts/EditorStateContext";
+import { ExportOptionsDialog } from "../components/ExportOptionsDialog";
 import Settings from "../components/Settings";
-import Divider from "../components/common/divider";
 import Refresh from "../components/Refresh";
 import LayoutControls from "../components/layout-controls";
-import { Button } from "@headlessui/react";
-import { ExportOptionsDialog } from "../components/ExportOptionsDialog";
+import Divider from "../components/common/divider";
 
-const DEFAULT_APP_NAME = "Unititled...";
+const DEFAULT_APP_NAME = "Untitled...";
 
 export default function Navigation() {
    const { appName, setCurrentAppName } = useEditorState();
+   
    const [isEditing, setIsEditing] = useState(false);
    const [isOpen, setIsOpen] = useState(false);
 

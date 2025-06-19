@@ -11,22 +11,15 @@ import {
    Transition,
    TransitionChild,
 } from "@headlessui/react";
-// import { cn } from "../lib/utils";
+import { useCodeStore } from "../hooks/useCodeStore";
+import type { ExportOption } from "../types";
 
 interface ExportOptionsDialogProps {
    open: boolean;
    onClose: () => void;
-   onExport: (option: "multi" | "single") => void;
 }
 
-type ExportOption = {
-   id: "multi" | "single";
-   label: string;
-   description: string;
-   icon?: React.ReactNode;
-};
-
-const options: ExportOption[] = [
+const options = [
    {
       id: "multi",
       label: "Export as multiple files",
@@ -73,11 +66,13 @@ const options: ExportOption[] = [
    },
 ];
 
-export function ExportOptionsDialog({ open, onClose, onExport }: ExportOptionsDialogProps) {
-   const [selectedOption, setSelectedOption] = useState<"multi" | "single">("multi");
+export function ExportOptionsDialog({ open, onClose }: ExportOptionsDialogProps) {
+   const { onExport } = useCodeStore();
+   const [selectedOption, setSelectedOption] = useState<ExportOption>("multi");
 
-   const handleExport = () => {
-      onExport(selectedOption);
+   const handleExport = (option: ExportOption) => {
+      const data = onExport(option);
+      console.log(data);
       onClose();
    };
 
@@ -158,7 +153,7 @@ export function ExportOptionsDialog({ open, onClose, onExport }: ExportOptionsDi
                            Cancel
                         </Button>
                         <Button
-                           onClick={handleExport}
+                           onClick={() => handleExport(selectedOption)}
                            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                         >
                            Export
@@ -171,7 +166,6 @@ export function ExportOptionsDialog({ open, onClose, onExport }: ExportOptionsDi
       </Transition>
    );
 }
-
 
 // import React, { useState } from "react";
 // import {
