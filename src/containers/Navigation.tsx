@@ -1,6 +1,6 @@
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useState, useRef, useEffect } from "react";
 import { Button } from "@headlessui/react";
-import { IconPencil } from "@tabler/icons-react";
+import { IconDownload, IconPencil } from "@tabler/icons-react";
 
 import { useEditorState } from "../contexts/EditorStateContext";
 import { ExportOptionsDialog } from "../components/ExportOptionsDialog";
@@ -9,77 +9,139 @@ import Refresh from "../components/Refresh";
 import LayoutControls from "../components/layout-controls";
 import Divider from "../components/common/divider";
 
-const DEFAULT_APP_NAME = "Untitled...";
+const DEFAULT_APP_NAME = "Untitled Project"; // More descriptive default
 
 export default function Navigation() {
    const { appName, setCurrentAppName } = useEditorState();
-   
+
    const [isEditing, setIsEditing] = useState(false);
+   const [draftAppName, setDraftAppName] = useState(appName);
    const [isOpen, setIsOpen] = useState(false);
+   const inputRef = useRef<HTMLInputElement>(null);
 
-   function handleOnClick() {
-      if (appName === DEFAULT_APP_NAME) setCurrentAppName("");
-   }
+   // Sync draftAppName with appName from context
+   useEffect(() => {
+      setDraftAppName(appName);
+   }, [appName]);
 
-   function handleOnBlur() {
-      if (appName.trim() === "") setCurrentAppName(DEFAULT_APP_NAME);
+   // Focus the input when editing starts
+   useEffect(() => {
+      if (isEditing && inputRef.current) {
+         inputRef.current.focus();
+      }
+   }, [isEditing]);
+
+   const handleEditStart = () => {
+      setIsEditing(true);
+      if (appName === DEFAULT_APP_NAME) {
+         setDraftAppName(""); // Clear default for easier typing
+      }
+   };
+
+   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setDraftAppName(e.target.value);
+   };
+
+   const saveAppName = () => {
+      const finalAppName = draftAppName.trim() === "" ? DEFAULT_APP_NAME : draftAppName.trim();
+      setCurrentAppName(finalAppName);
       setIsEditing(false);
-   }
+   };
 
-   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
-      setCurrentAppName(e.target.value);
-   }
+   const handleInputBlur = () => {
+      saveAppName();
+   };
+
+   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") {
+         saveAppName();
+         inputRef.current?.blur(); // Blur to exit editing mode
+      } else if (e.key === "Escape") {
+         setDraftAppName(appName); // Revert changes
+         setIsEditing(false);
+         inputRef.current?.blur(); // Blur to exit editing mode
+      }
+   };
 
    return (
-      <div className="flex justify-between items-center p-2 px-5 border-b border-gray-300 dark:border-gray-800">
-         <div className="flex items-center gap-2">
-            <div className="px-2 *:stroke-gray-800 dark:*:stroke-gray-100">
-               {/* prettier-ignore */}
-               <svg width="40" height="40" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  {/* <rect x="10" y="10" width="180" height="180" rx="30" fill="#888888"/> */}
-                  <path d="M60 70L40 90L60 110" stroke="#555555" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M140 70L160 90L140 110" stroke="#555555" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M85 130L115 50" stroke="gray" strokeWidth="15" strokeLinecap="round"/>
+      <div className="flex justify-between items-center p-3 px-6 bg-white border-b border-gray-200 shadow-sm dark:bg-gray-900 dark:border-gray-800">
+         {/* Left section: Logo and App Name */}
+         <div className="flex items-center gap-3">
+            {/* Modernized Logo SVG */}
+            <div className="flex-shrink-0">
+               <svg
+                  width="36"
+                  height="36"
+                  viewBox="0 0 100 100"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+               >
+                  {/* A more abstract and modern design */}
+                  <path
+                     d="M30 40 L50 20 L70 40"
+                     stroke="#6366F1" // A vibrant primary color (indigo-500)
+                     strokeWidth="10"
+                     strokeLinecap="round"
+                     strokeLinejoin="round"
+                  />
+                  <path
+                     d="M30 60 L50 80 L70 60"
+                     stroke="#A78BFA" // A complementary lighter shade (purple-400)
+                     strokeWidth="10"
+                     strokeLinecap="round"
+                     strokeLinejoin="round"
+                  />
                </svg>
             </div>
+
+            {/* App Name Editor */}
             {isEditing ? (
                <input
+                  ref={inputRef}
                   type="text"
-                  value={appName}
-                  className="bg-transparent outline-none font-medium border-none text-gray-700 dark:text-gray-200"
-                  onClick={handleOnClick}
-                  onChange={handleOnChange}
-                  onBlur={handleOnBlur}
-                  autoFocus
+                  value={draftAppName}
+                  onChange={handleInputChange}
+                  onBlur={handleInputBlur}
+                  onKeyDown={handleInputKeyDown}
+                  placeholder={DEFAULT_APP_NAME}
+                  className="flex-grow bg-transparent outline-none font-semibold text-lg text-gray-800 dark:text-gray-100 border-b border-transparent focus:border-blue-500 dark:focus:border-blue-400 pb-0.5 transition-colors duration-200"
                />
             ) : (
-               <span
-                  className="text-gray-400 font-medium dark:text-gray-400 cursor-pointer hover:text-gray-500 hover:bg-gray-200 px-1 rounded-md"
-                  onClick={() => setIsEditing(true)}
+               <div
+                  className="flex items-center gap-2 cursor-pointer group"
+                  onClick={handleEditStart}
                >
-                  {appName}
-               </span>
+                  <span className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                     {appName}
+                  </span>
+                  <IconPencil className="size-4 text-gray-400 transition-colors duration-200 dark:group-hover:text-gray-300 group-hover:text-gray-600" />
+               </div>
             )}
-            <button onClick={() => setIsEditing(true)}>
-               <span className="inline text-gray-700 dark:text-gray-400">
-                  <IconPencil className="" />
-               </span>
-            </button>
          </div>
+
+         {/* Right section: Actions */}
          <div className="flex items-center gap-4">
+            {/* Export Button */}
             <Button
-               className="py-2 px-5 font-medium bg-gray-800 hover:bg-gray-700 text-white rounded-md text-sm me-8"
+               className="py-2 rounded-full px-3.5 inline-flex items-center gap-1.5 font-medium bg-gray-800 hover:bg-gray-900 text-white text-[13px] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
                onClick={() => setIsOpen(true)}
             >
+               <IconDownload className="size-4 opacity-60" />
                Export
             </Button>
             <ExportOptionsDialog open={isOpen} onClose={() => setIsOpen(false)} />
+
+            {/* Action Controls */}
             <Refresh />
             <Divider />
             <LayoutControls />
             <Settings />
             <Divider />
-            <button className="size-7 flex bg-pink-500 rounded-full"></button>
+
+            {/* User Profile / Avatar Placeholder */}
+            <button className="size-8 flex justify-center items-center text-sm font-bold text-white bg-pink-500 rounded-full shadow-md transition-colors duration-200 hover:bg-pink-600">
+               {/* U */}
+            </button>
          </div>
       </div>
    );

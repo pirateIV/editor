@@ -11,7 +11,7 @@ import {
    Transition,
    TransitionChild,
 } from "@headlessui/react";
-import { useCodeStore } from "../hooks/useCodeStore";
+import { useCodeStore } from "../hooks/EditorCodeStore";
 import type { ExportOption } from "../types";
 
 interface ExportOptionsDialogProps {
@@ -70,8 +70,8 @@ export function ExportOptionsDialog({ open, onClose }: ExportOptionsDialogProps)
    const { onExport } = useCodeStore();
    const [selectedOption, setSelectedOption] = useState<ExportOption>("multi");
 
-   const handleExport = (option: ExportOption) => {
-      const data = onExport(option);
+   const handleExport = async (option: ExportOption) => {
+      const data = await onExport(option);
       console.log(data);
       onClose();
    };
@@ -153,7 +153,7 @@ export function ExportOptionsDialog({ open, onClose }: ExportOptionsDialogProps)
                            Cancel
                         </Button>
                         <Button
-                           onClick={() => handleExport(selectedOption)}
+                           onClick={async () => await handleExport(selectedOption)}
                            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                         >
                            Export
