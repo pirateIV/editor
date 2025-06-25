@@ -4,9 +4,9 @@ type Languages = Record<Language, string>;
 
 export const constructHtmlDocument = (
    { html, css, javascript }: Languages,
-   { type = "single" }: { type?: ExportOption }
+   { format = "single" }: { format?: ExportOption }
 ) => {
-   switch (type) {
+   switch (format) {
       case "single":
          return `<html><head><style>${css}</style></head><body>${html}</body><script>${javascript}</script></html>`;
       case "multi":

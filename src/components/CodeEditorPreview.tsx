@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useCodeStore } from "../hooks/useCodeStore";
+import { useCodeStore } from "../hooks/EditorCodeStore";
 import { constructHtmlDocument } from "../helpers";
 import { cn } from "../lib/utils";
 
@@ -15,7 +15,7 @@ export default function CodeEditorPreview({ className }: { className?: string })
 
          // Construct the full HTML document string from the code
          const sourceDoc = constructHtmlDocument(code.languages, {
-            type: "single",
+            format: "single",
          });
 
          // Access the iframe's internal document
@@ -33,7 +33,7 @@ export default function CodeEditorPreview({ className }: { className?: string })
 
    return (
       <iframe
-         ref={iframeRef}
+         ref={iframeRef}   
          className={cn("size-full bg-white duration-300", className!)}
       ></iframe>
    );

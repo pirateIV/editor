@@ -3,7 +3,7 @@ import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
 import { cn } from "../lib/utils";
 import type { Language } from "../types";
-import { useCodeStore } from "../hooks/useCodeStore";
+import { useCodeStore } from "../hooks/EditorCodeStore";
 import { useEditorDirection } from "../contexts/EditorDirectionContext";
 import CodeEditorTab from "./CodeEditorTab";
 

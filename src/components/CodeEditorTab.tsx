@@ -53,16 +53,16 @@ export default function CodeEditorTab({
          {...props}
       >
          <CodeEditorHeader language={language} />
-         <Editor
+         <Editor  
             value={value}
             language={language}
             onChange={handleEditorChange}
             beforeMount={handleEditorWillMount}
             // theme="abyss"
             options={{
-               fontFamily: "Menlo",
+               fontFamily: "MonoLisa",
                fontWeight: "600",
-               fontSize: 14,
+               fontSize: 13,
                automaticLayout: true,
                minimap: { enabled: false },
                folding: true,

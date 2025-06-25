@@ -42,7 +42,7 @@ export default function LayoutControls() {
    };
 
    return (
-      <div className="ml-auto shadow-2xs w-fit flex bg-white rounded-lg border border-gray-300 shadow-gray-100 dark:shadow-gray-950/40 dark:bg-gray-800 dark:border-0 dark:border-t dark:border-t-gray-700">
+      <div className="ml-auto shadow-2xs w-fit flex bg-white rounded-lg border border-neutral-300 shadow-gray-100 dark:shadow-gray-950/40 dark:bg-gray-800 dark:border-0 dark:border-t dark:border-t-gray-700">
          {layoutIcons.map(({ label, icon: Icon, layoutMode }) => (
             <LayoutButton
                key={label}
