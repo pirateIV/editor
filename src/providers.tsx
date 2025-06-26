@@ -1,8 +1,8 @@
 import type React from "react";
 
-import { CodeStoreProvider } from "./hooks/EditorCodeStore.tsx";
-import { EditorProvider } from "./contexts/EditorDirectionContext";
-import { EditorStateProvider } from "./contexts/EditorStateContext";
+import { CodeStoreProvider } from "./contexts/editor-code-store.tsx";
+import { EditorProvider } from "./contexts/editor-layout.tsx";
+import { EditorStateProvider } from "./contexts/editor-state.tsx";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
    return (

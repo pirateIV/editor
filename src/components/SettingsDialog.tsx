@@ -8,7 +8,7 @@ import {
    Transition,
    TransitionChild,
 } from "@headlessui/react";
-import { useEditorState } from "../contexts/EditorStateContext";
+import { useEditorState } from "../contexts/editor-state";
 
 interface SettingsDialogProps {
    open: boolean;

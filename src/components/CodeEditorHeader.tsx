@@ -11,10 +11,10 @@ const icons = {
 
 export default function CodeEditorHeader({ language }: { language: Language }) {
    return (
-      <div className="bg-white dark:bg-gray-900" data-lang-mode={language}>
-         <div className="w-24 flex justify-start items-center gap-2 ps-5 py-1 text-sm bg-gray-200 border border-t-4 border-gray-300 border-t-gray-400 dark:border-gray-800/80 dark:bg-gray-900 dark:border-t-gray-700">
+      <div className="bg-gray- dark:bg-gray-900" data-lang-mode={language}>
+         <div className="w-24 flex justify-start items-center gap-2 ps-5 py-1 text-sm bg-white border border-l-0 border-gray-200 shadow-sm shadow-gray-300 rounded-e-md">
             {icons[language]}
-            <span className="dark:text-gray-100"> {editorLanguages[language]}</span>
+            <span className="text-gray-800 font-medium"> {editorLanguages[language]}</span>
          </div>
       </div>
    );
