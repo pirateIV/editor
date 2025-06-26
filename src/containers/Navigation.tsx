@@ -2,7 +2,7 @@ import React, { forwardRef, useState, useRef, useEffect } from "react";
 import { Button } from "@headlessui/react";
 import { IconDownload, IconPencil } from "@tabler/icons-react";
 
-import { useEditorState } from "../contexts/EditorStateContext";
+import { useEditorState } from "../contexts/editor-state";
 import { ExportOptionsDialog } from "../components/ExportOptionsDialog";
 import Settings from "../components/Settings";
 import Refresh from "../components/Refresh";

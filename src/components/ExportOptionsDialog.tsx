@@ -11,7 +11,7 @@ import {
    Transition,
    TransitionChild,
 } from "@headlessui/react";
-import { useCodeStore } from "../hooks/EditorCodeStore";
+import { useCodeStore } from "../contexts/editor-code-store";
 import type { ExportOption } from "../types";
 
 interface ExportOptionsDialogProps {

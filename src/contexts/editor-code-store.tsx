@@ -42,7 +42,7 @@ export function CodeStoreProvider({ children }: { children: ReactNode }) {
    const onExport = async (format: ExportOption): Promise<Languages | string> => {
       if (!code?.languages) throw new Error("Code languages not initialized!");
 
-      const html = constructHtmlDocument(code?.languages, { format });
+      const html = constructHtmlDocument(code.languages, { format });
 
       if (format === "multi") {
          return { ...code.languages, html: "" };
@@ -52,13 +52,13 @@ export function CodeStoreProvider({ children }: { children: ReactNode }) {
                parser: "html",
                plugins: [parserHtml, parserPostCSS, parserBabel],
                printWidth: 150,
-               htmlWhitespaceSensitivity: "css",
+               htmlWhitespaceSensitivity: "ignore",
                tabWidth: 2,
                semi: false,
                singleQuote: true,
             });
 
-            console.log("Formatted HTML:", formattedHtml);
+            console.log(html, formattedHtml)
 
             const url = URL.createObjectURL(new Blob([formattedHtml], { type: "text/html" }));
             const link = document.createElement("a");
