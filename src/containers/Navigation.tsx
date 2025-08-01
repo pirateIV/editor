@@ -8,6 +8,7 @@ import Settings from "../components/Settings";
 import Refresh from "../components/Refresh";
 import LayoutControls from "../components/layout-controls";
 import Divider from "../components/common/divider";
+import Logo from "../components/assets/logo";
 
 const DEFAULT_APP_NAME = "Untitled Project"; // More descriptive default
 
@@ -64,34 +65,12 @@ export default function Navigation() {
    };
 
    return (
-      <div className="flex justify-between items-center p-3 px-6 bg-white border-b border-gray-200 shadow-sm dark:bg-gray-900 dark:border-gray-800">
+      <div className="flex justify-between items-center p-3 px-6 bg-gray-50 border-b border-gray-200 shadow-sm dark:bg-gray-900 dark:border-gray-800">
          {/* Left section: Logo and App Name */}
          <div className="flex items-center gap-3">
             {/* Modernized Logo SVG */}
             <div className="flex-shrink-0">
-               <svg
-                  width="36"
-                  height="36"
-                  viewBox="0 0 100 100"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-               >
-                  {/* A more abstract and modern design */}
-                  <path
-                     d="M30 40 L50 20 L70 40"
-                     stroke="#6366F1" // A vibrant primary color (indigo-500)
-                     strokeWidth="10"
-                     strokeLinecap="round"
-                     strokeLinejoin="round"
-                  />
-                  <path
-                     d="M30 60 L50 80 L70 60"
-                     stroke="#A78BFA" // A complementary lighter shade (purple-400)
-                     strokeWidth="10"
-                     strokeLinecap="round"
-                     strokeLinejoin="round"
-                  />
-               </svg>
+               <Logo />
             </div>
 
             {/* App Name Editor */}

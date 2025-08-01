@@ -13,6 +13,25 @@ import CodeEditorWindow from "./components/CodeEditorWindow";
 import PanelResizer from "./components/common/PanelResizer";
 import FullscreenButton from "./components/editor/FullscreenButton";
 
+const transition = {
+   nav: {
+      enter: "transition-all duration-300 ease-in-out",
+      enterFrom: "opacity-0 -translate-y-4",
+      enterTo: "opacity-100 translate-y-0",
+      leave: "transition-all duration-300 ease-in-out",
+      leaveFrom: "opacity-100 translate-y-0",
+      leaveTo: "opacity-0 -translate-y-4",
+   },
+   footer: {
+      enter: "transition-all duration-300",
+      enterFrom: "opacity-0 translate-y-4",
+      enterTo: "opacity-100 translate-y-0",
+      leave: "transition-all duration-300",
+      leaveFrom: "opacity-100 translate-y-0",
+      leaveTo: "opacity-0 translate-y-4",
+   },
+};
+
 export default function Editor() {
    const isMobile = useMobile();
    const { editorDirection } = useEditorDirection();
@@ -40,15 +59,7 @@ export default function Editor() {
    return (
       <div className="h-screen relative flex flex-col overflow-hidden">
          {/* Animated Navigation */}
-         <Transition
-            show={!isFullscreen}
-            enter="transition-all duration-300 ease-in-out"
-            enterFrom="opacity-0 -translate-y-4"
-            enterTo="opacity-100 translate-y-0"
-            leave="transition-all duration-300 ease-in-out"
-            leaveFrom="opacity-100 translate-y-0"
-            leaveTo="opacity-0 -translate-y-4"
-         >
+         <Transition show={!isFullscreen} {...transition.nav}>
             <NavigationWithRef />
          </Transition>
 
@@ -79,15 +90,7 @@ export default function Editor() {
          )}
 
          {/* Footer */}
-         <Transition
-            show={!isFullscreen}
-            enter="transition-all duration-300"
-            enterFrom="opacity-0 translate-y-4"
-            enterTo="opacity-100 translate-y-0"
-            leave="transition-all duration-300"
-            leaveFrom="opacity-100 translate-y-0"
-            leaveTo="opacity-0 translate-y-4"
-         >
+         <Transition show={!isFullscreen} {...transition.footer}>
             <FooterWithRef />
          </Transition>
       </div>

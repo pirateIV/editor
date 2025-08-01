@@ -21,6 +21,28 @@ const CodeStoreContext = createContext<CodeStoreContextType | undefined>(undefin
 const STORAGE_KEY = "code_store";
 const initialData = { html: "", css: "", javascript: "" };
 
+// File download helper
+async function downloadFile(name: string, format: string, code: string) {
+   const formattedCode = await prettier.format(code, {
+      parser: "html",
+      plugins: [parserHtml, parserPostCSS, parserBabel],
+      printWidth: 150,
+      htmlWhitespaceSensitivity: "ignore",
+      tabWidth: 2,
+      semi: false,
+      singleQuote: true,
+   });
+
+   const url = URL.createObjectURL(new Blob([formattedCode], { type: `text/${format}` }));
+   const link = document.createElement("a");
+   link.href = url;
+   link.download = `${name}.${format}`;
+   link.click();
+
+   setTimeout(() => URL.revokeObjectURL(url));
+   return url;
+}
+
 export function CodeStoreProvider({ children }: { children: ReactNode }) {
    const [code, setCode] = useState<CodeLanguages>({
       languages: initialData,
@@ -44,30 +66,17 @@ export function CodeStoreProvider({ children }: { children: ReactNode }) {
 
       const html = constructHtmlDocument(code.languages, { format });
 
+      // const languages = ["html", "css", "javacscript"];
+
       if (format === "multi") {
+         // code.languages.forEach((language, index) => {
+
+         // });
          return { ...code.languages, html: "" };
+
       } else {
          try {
-            const formattedHtml = await prettier.format(html, {
-               parser: "html",
-               plugins: [parserHtml, parserPostCSS, parserBabel],
-               printWidth: 150,
-               htmlWhitespaceSensitivity: "ignore",
-               tabWidth: 2,
-               semi: false,
-               singleQuote: true,
-            });
-
-            console.log(html, formattedHtml)
-
-            const url = URL.createObjectURL(new Blob([formattedHtml], { type: "text/html" }));
-            const link = document.createElement("a");
-            link.href = url;
-            link.download = "index.html";
-            link.click();
-            setTimeout(() => URL.revokeObjectURL(url), 100);
-
-            return url;
+            return downloadFile("index", "html", html);
          } catch (error) {
             console.error("Formatting failed:", error);
             // Fallback to unformatted HTML if formatting fails

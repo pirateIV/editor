@@ -15,9 +15,3 @@ export default function LayoutButton({
       </button>
    );
 }
-
-// export function LayoutIcon({active}: {active: boolean}) {
-//    return (
-
-//    )
-// }

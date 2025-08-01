@@ -1,16 +1,21 @@
 import type React from "react";
 
-import { CodeStoreProvider } from "./contexts/editor-code-store.tsx";
-import { EditorProvider } from "./contexts/editor-layout.tsx";
-import { EditorStateProvider } from "./contexts/editor-state.tsx";
+import { Provider } from "react-redux";
+import { EditorProvider } from "./contexts/editor-layout";
+import { EditorStateProvider } from "./contexts/editor-state";
+import { CodeStoreProvider } from "./contexts/editor-code-store";
+import { store } from "./store/store";
+import type { Children } from "./types";
 
-const Providers = ({ children }: { children: React.ReactNode }) => {
+const Providers = ({ children }: Children) => {
    return (
-      <EditorProvider>
-         <EditorStateProvider>
-            <CodeStoreProvider>{children}</CodeStoreProvider>
-         </EditorStateProvider>
-      </EditorProvider>
+      <Provider store={store}>
+         <EditorProvider>
+            <EditorStateProvider>
+               <CodeStoreProvider>{children}</CodeStoreProvider>
+            </EditorStateProvider>
+         </EditorProvider>
+      </Provider>
    );
 };
 
