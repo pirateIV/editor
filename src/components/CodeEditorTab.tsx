@@ -7,7 +7,7 @@ import type { Language } from "../types";
 import { cn } from "../lib/utils";
 import CodeEditorHeader from "./CodeEditorHeader";
 import { useClipboard } from "../hooks/use-clipboard";
-import { IconCheck, IconCopy, IconCopyCheck } from "@tabler/icons-react";
+import { IconCheck, IconCopy } from "@tabler/icons-react";
 
 interface CodeEditorTabProps {
    className?: React.HTMLAttributes<HTMLDivElement>["className"];
