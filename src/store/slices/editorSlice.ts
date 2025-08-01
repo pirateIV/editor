@@ -19,9 +19,6 @@ const initialState: EditorState = {
    showPreview: true,
 };
 
-// Define localStorage for potential persistence of editor state
-const storage = window.localStorage;
-
 const editorSlice = createSlice({
    name: "editor",
    initialState,
@@ -46,4 +43,4 @@ const editorSlice = createSlice({
 export const { setCursorPosition, setAppColorScheme, toggleDarkMode, togglePreview } =
    editorSlice.actions;
 
-export default editorSlice.reducer;
+export default editorSlice;

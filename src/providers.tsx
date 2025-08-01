@@ -1,5 +1,3 @@
-import type React from "react";
-
 import { Provider } from "react-redux";
 import { EditorProvider } from "./contexts/editor-layout";
 import { EditorStateProvider } from "./contexts/editor-state";
