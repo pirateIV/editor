@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
 import { emmetHTML } from "emmet-monaco-es";
 import * as monaco from "monaco-editor";
@@ -85,7 +85,14 @@ export default function CodeEditorTab({
                className="text-gray-500 hover:bg-gray-200 transition rounded-md p-1 cursor-pointer"
                onClick={() => copy(value)}
             >
-               {copied ? <IconCheck size="18" /> : <IconCopy size="18" />}
+               {copied ? (
+                  <IconCheck size="18" />
+               ) : (
+                  <IconCopy
+                     size="18"
+                     // className="hover:first:-translate-x-px hover:first-of-type:-translate-y-px hover:last-of-type:-translate-x-px hover:last-of-type:-translate-y-px"
+                  />
+               )}
             </button>
          </CodeEditorHeader>
          <Editor

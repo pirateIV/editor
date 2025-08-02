@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { SettingsState } from "../../types";
 
-const initialState: SettingsState = {
+const initialState = {
    darkTheme: false,
    loading: false,
    monacoEditorOptions: {},
-};
+} as SettingsState;
 
-const settingsSlice = createSlice({
+export const settingsSlice = createSlice({
    name: "settings",
    initialState,
    reducers: {
